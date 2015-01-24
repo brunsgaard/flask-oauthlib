@@ -634,13 +634,17 @@ class OAuth2RequestValidator(RequestValidator):
 
         request.client = client
 
-        if client.client_secret != client_secret:
-            log.debug('Authenticate client failed, secret not match.')
-            return False
+        if client.client_type == 'public':
+            return True
 
         if client.client_type != 'confidential':
             log.debug('Authenticate client failed, not confidential.')
             return False
+
+        if hasattr(clint, ''client.client_secret != client_secret:
+            log.debug('Authenticate client failed, secret not match.')
+            return False
+
         log.debug('Authenticate client success.')
         return True
 
